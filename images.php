@@ -14,7 +14,7 @@
 // Set the default timezone:
 date_default_timezone_set('America/Denver');
 
-$dir = '../../../uploads'; // Define the directory to view.
+$dir = '../../uploads'; // Define the directory to view.
 
 $files = scandir($dir); // Read all the images into an array.
 
