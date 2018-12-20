@@ -1,15 +1,19 @@
-<?php # Script 12.6 - logout.php
-// This pag let the user logout.
+<?php # Script 12.11 - logout.php #2
+// This page let the user logout.
+
+session_start(); // Access the existing session.
 
 // If no cookie is present, redirect the user:
-if (!isset($_COOKIE['user_id'])) {
+if (!isset($_SESSION['user_id'])) {
 
     require('includes/login_functions.inc.php');
     redirect_user();
 } else { // Delete the cookies
 
-    setcookie('user_id', '', time()-3600, '/', '', 0, 0);
-    setcookie('first_name', '', time()-3600, '/', '', 0, 0);
+    $_SESSION = []; // Clear the variables.
+    session_destroy(); // Destroy the session itself.
+    setcookie('PHPSESSID', '', time()-3600, '/', '', 0, 0); // Destroy the cookie.
+    
 }
 
 // Set the page title and include the HTML header:
@@ -18,7 +22,7 @@ include('includes/header.html');
 
 // Print a customized message:
 echo "<h1>Logged Out!</h1>
-<p>You are now logged out, {$_COOKIE['first_name']}!</p>";
+<p>You are now logged out!</p>";
 
 include('includes/footer.html');
 ?>

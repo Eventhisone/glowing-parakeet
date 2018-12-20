@@ -1,4 +1,4 @@
-<?php # Script 12.3 - login.php #2
+<?php # Script 12.12 - login.php #4
 // This page processes the login form submission.
 // Upon successful login, the user is redirected.
 // Two included files are necessary.
@@ -18,9 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($check) { // OK! 
     
-        // Set the cookies:
-        setcookie('user_id', $data['user_id'], time()+3600, '/', '', 0, 0);
-        setcookie('first_name', $data['first_name'], time()+3600, '/', '', 0, 0);
+        // Set the session data:
+        session_start();
+        $_SESSION['user_id'] = $data['user_id'];
+        $_SESSION['first_name'] = $data['first_name'];
+
+        // Store the HTTP_USER_AGENT:
+        $_SESSION['agent'] = sha1($_SERVER['HTTP_USER_AGENT']);
 
         // Redirect:
         redirect_user("loggedin.php");
